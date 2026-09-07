@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>keeper, coming soon. Tell keeper who you love.</title>
+<meta name="description" content="Tell keeper who you love. We'll help you look after them. Free, no plan to pick, no card to add. Coming soon to keeper.gifts.">
+<meta name="theme-color" content="#fafafc">
+<!-- A pasted link is often the first time anyone sees keeper. Absolute URLs, because every
+     unfurler fetches the image from its own server. og.png is rendered by ../render.mjs from the
+     same word, face and palette as this page, so it cannot drift. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="keeper">
+<meta property="og:title" content="keeper, coming soon">
+<meta property="og:description" content="Tell keeper who you love. We'll help you look after them.">
+<meta property="og:url" content="https://keeper.gifts/">
+<meta property="og:image" content="https://keeper.gifts/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="keeper. Tell keeper who you love. We'll help you look after them. Coming soon.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="keeper, coming soon">
+<meta name="twitter:description" content="Tell keeper who you love. We'll help you look after them.">
+<meta name="twitter:image" content="https://keeper.gifts/og.png">
+<link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://keeper.gifts/">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
+<style>
+/*
+ * Marshmallow, the brand's only language. Values are lifted from
+ * packages/tokens/src/languages.ts and inlined here on purpose: this site is meant to be dropped
+ * onto S3 or Vercel as a folder, with no generator behind it. If the palette moves, move it here.
+ */
+:root{
+  --bg:#fafafc; --bg-deep:#f3f1f8;
+  --surface:#e6dcff; --surface-raised:#ffffff; --tint:#e6dcff; --tint-deep:#d9ccff;
+  --ink:#26212e; --ink-dim:#443c4f; --ink-muted:#625a6e; --ink-faint:#736b7e; --ink-ghost:#787083;
+  --cta-fill:#5b3fa6; --cta-fill-pressed:#4a3190; --cta-ink:#ffffff; --cta-outline:#5b3fa6;
+  --status-fill:#ffe45c; --status-ink:#26212e;
+  --neutral-fill:#ece9f2; --neutral-ink:#625a6e;
+  --dashed:#c9b8fa; --green:#2f7a4f;
+  --stripes-a:#efeaf7; --stripes-b:#e2d8f5;
+  --hairline:#e6dcff; --divider:rgba(91,63,166,.14);
+  --grad-hero-card-fade:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.72));
+  --sans:'Archivo',system-ui,-apple-system,sans-serif;
+  --display:'Poppins','Archivo',system-ui,sans-serif;
+  --radius-input:16px; --radius-button:999px; --radius-card:22px; --radius-card-small:16px;
+  --radius-pill:999px; --radius-sheet:28px; --radius-tile:20px;
+  --motion-enter:cubic-bezier(.34,1.56,.64,1); --motion-enter-ms:420ms;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--cta-fill);text-decoration:none}
+a:hover{color:var(--ink)}
+input,button{font-family:inherit}
+button{cursor:pointer}
+img{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding-left:36px;padding-right:36px}
+.display{font-family:var(--display);font-weight:700;letter-spacing:-.02em}
+.wordmark{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.pill{border:0;border-radius:var(--radius-button);font-family:var(--display);font-weight:600;font-size:16px;padding:14px 24px;cursor:pointer;transition:transform .12s ease}
+.pill.primary{background:var(--cta-fill);color:var(--cta-ink)}
+.pill.primary:active{background:var(--cta-fill-pressed)}
+.pill.outline{background:var(--surface-raised);color:var(--cta-fill);box-shadow:inset 0 0 0 1.5px var(--cta-outline)}
+.pill:active{transform:scale(.98)}
+.label{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--ink-muted);text-transform:uppercase}
+.chip{font-size:12.5px;font-weight:700;color:var(--status-ink);background:var(--status-fill);border-radius:var(--radius-pill);padding:6px 12px;white-space:nowrap}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@keyframes rise{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes pop{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
+.rise{display:block;animation:rise .7s var(--motion-enter) both}
+.rise-calm{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){.rise,.rise-calm,.hero-card,.noted{animation:none!important}}
+
+/* ── header ── */
+header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding-top:18px;padding-bottom:18px}
+.nav .mark{display:inline-flex;align-items:center;gap:12px}
+.nav .wordmark{font-size:26px}
+.nav nav{display:flex;align-items:center;gap:22px;font-size:14.5px;font-weight:600}
+.nav nav a{color:var(--ink-muted)}
+.nav nav a:hover{color:var(--ink)}
+.nav .pill{padding:11px 20px;font-size:14.5px}
+@media(max-width:720px){.nav nav a{display:none}}
+
+/* ── hero ── */
+.hero{padding-top:56px;padding-bottom:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,4.7vw,58px);line-height:1.04;margin:0;color:var(--ink);text-wrap:balance}
+.hero h1 .credit{color:var(--cta-fill)}
+.hero .sub{font-size:18px;line-height:1.55;color:var(--ink-muted);max-width:42ch;margin:26px 0 0;text-wrap:pretty}
+.cta-row{margin-top:26px}
+.cta-note{font-size:13.5px;color:var(--ink-faint);margin-top:10px;display:block}
+.waitlist{display:flex;gap:10px;flex-wrap:wrap}
+.waitlist input{flex:1 1 220px;min-width:0;padding:14px 18px;border-radius:var(--radius-button);border:1.5px solid var(--hairline);background:var(--surface-raised);color:var(--ink);font-size:15px;outline:none}
+.waitlist input:focus-visible{border-color:var(--cta-fill);box-shadow:0 0 0 3px rgba(91,63,166,.15)}
+.noted{font-size:15.5px;color:var(--cta-fill);font-weight:600;animation:pop .4s var(--motion-enter) both;margin-top:12px}
+.parcel{display:flex;align-items:center;gap:14px;margin-top:34px;padding:12px 16px 12px 12px;background:var(--surface);border-radius:var(--radius-card);max-width:420px}
+.parcel-photo{flex:none;width:64px;height:64px;border-radius:var(--radius-card-small);overflow:hidden}
+.parcel-photo img{width:100%;height:100%;object-fit:cover}
+.parcel-copy{font-size:14px;line-height:1.45;color:var(--ink-dim);font-weight:500}
+.hero-card{position:relative;border-radius:var(--radius-sheet);overflow:hidden;background:var(--tint);aspect-ratio:5/6;animation:pop .8s var(--motion-enter) .2s both}
+.hero-card img{width:100%;height:100%;object-fit:cover}
+.hero-card::after{content:'';position:absolute;inset:0;background:var(--grad-hero-card-fade);pointer-events:none}
+.hero-caption{position:absolute;left:22px;right:22px;bottom:22px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;color:var(--cta-ink)}
+.hero-caption .display{font-size:22px;font-weight:600;line-height:1.15;letter-spacing:0}
+.hero-caption small{display:block;font-size:13px;opacity:.85;margin-top:4px}
+@media(max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-top:36px}.hero-card{aspect-ratio:4/3;max-height:420px}}
+
+/* ── sections ── */
+section.band{padding-top:70px;padding-bottom:70px}
+.section-head{max-width:60ch;margin-bottom:28px}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;margin:0 0 10px}
+.section-head p{font-size:16.5px;color:var(--ink-muted);margin:0;text-wrap:pretty}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.card{background:var(--surface);border-radius:var(--radius-card);padding:24px 26px}
+.card.white{background:var(--surface-raised);border:1.5px solid var(--hairline)}
+.card .label{margin-bottom:10px;color:var(--cta-fill)}
+.card h3{font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;line-height:1.25}
+.card p{font-size:15px;color:var(--ink-dim);margin:0;line-height:1.5;text-wrap:pretty}
+
+/* the decision card, drawn the way the app draws it */
+.decision{background:var(--surface-raised);border:1.5px solid var(--hairline);border-radius:var(--radius-sheet);padding:22px 20px;max-width:400px}
+.decision .eyebrow{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--cta-fill);text-transform:uppercase}
+.decision .title{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:8px 0 6px}
+.decision .why{font-size:14px;color:var(--ink-muted);line-height:1.5;margin:0 0 14px}
+.decision .ready{background:var(--tint-deep);border-radius:var(--radius-card);padding:14px;display:flex;gap:12px;align-items:center}
+.decision .thumb{flex:none;width:56px;height:56px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(45deg,var(--stripes-a) 0 10px,var(--stripes-b) 10px 20px)}
+.decision .thumb img{width:100%;height:100%;object-fit:cover}
+.decision .t{font-family:var(--display);font-size:15px;font-weight:600;line-height:1.3}
+.decision .m{font-size:12.5px;color:var(--ink-muted);margin-top:3px}
+.decision .btn{flex:none;background:var(--cta-fill);color:#fff;border-radius:var(--radius-pill);padding:10px 16px;font-family:var(--display);font-size:13.5px;font-weight:600}
+.decision .foot{font-size:13px;color:var(--ink-faint);margin:12px 0 0}
+.works{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
+@media(max-width:860px){.works{grid-template-columns:1fr}}
+
+/* ── free ── */
+.free{background:var(--ink);color:var(--bg);border-radius:var(--radius-sheet)}
+.free .inner{padding:56px 48px}
+.free h2{font-size:clamp(32px,4.4vw,52px);line-height:1.02;margin:0 0 10px;color:var(--bg)}
+.free .lede{font-size:18px;color:color-mix(in srgb,var(--bg) 72%,transparent);max-width:46ch;margin:0 0 30px;text-wrap:pretty}
+.free .cards{gap:12px}
+.free .card{background:color-mix(in srgb,var(--bg) 8%,transparent);border:1px solid color-mix(in srgb,var(--bg) 14%,transparent)}
+.free .card h3{color:var(--bg)}
+.free .card p{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.free .card .label{color:var(--status-fill)}
+.free .note{margin-top:24px;font-size:14px;color:color-mix(in srgb,var(--bg) 60%,transparent);max-width:70ch}
+@media(max-width:720px){.free .inner{padding:36px 26px}}
+
+/* ── modes ── */
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.mode{background:var(--surface-raised);border:1.5px solid var(--hairline);border-radius:var(--radius-card);padding:22px 24px;position:relative}
+.mode.pick{border-color:var(--cta-fill);background:var(--surface)}
+.mode .tag{position:absolute;top:16px;right:16px}
+.mode h3{font-family:var(--display);font-size:20px;font-weight:600;margin:0 0 8px;letter-spacing:-.015em}
+.mode p{font-size:15px;color:var(--ink-dim);margin:0;line-height:1.5}
+.mode .line{margin-top:14px;padding-top:12px;border-top:1px solid var(--divider);font-size:13.5px;color:var(--ink-muted);font-weight:600}
+
+/* ── quiet ── */
+.quiet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
+.quiet h2{font-size:clamp(30px,3.8vw,42px);line-height:1.1;margin:0}
+.quiet p{font-size:15.5px;line-height:1.55;color:var(--ink-muted);margin:16px 0 0;max-width:42ch;text-wrap:pretty}
+.quiet-photo{border-radius:var(--radius-card);overflow:hidden;background:var(--tint)}
+.quiet-photo img{width:100%;height:340px;object-fit:cover}
+@media(max-width:860px){.quiet{grid-template-columns:1fr}}
+
+/* ── close ── */
+.close{text-align:center;padding-top:40px;padding-bottom:90px}
+.close h2{font-size:clamp(30px,4vw,46px);line-height:1.05;margin:0 0 12px}
+.close p{color:var(--ink-muted);margin:0 auto 24px;max-width:46ch}
+.close .waitlist{justify-content:center;max-width:520px;margin:0 auto}
+.close .cta-note{text-align:center}
+
+footer{border-top:1px solid var(--hairline)}
+footer .wrap{padding-top:28px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink-faint);flex-wrap:wrap;gap:12px}
+footer nav{display:flex;gap:20px}
+footer a{color:var(--ink-faint)}
+footer a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="mark" href="/"><span class="wordmark">keeper</span><span class="chip">Coming soon</span></a>
+    <nav>
+      <a href="#works">What&rsquo;s coming</a>
+      <a href="#free">Free</a>
+      <a href="#how">How much you do</a>
+      <a href="#keep" class="pill primary">Keep me posted</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─────────────────────────────────────────────── HERO ── -->
+<section class="wrap hero">
+  <div>
+    <h1 class="display">
+      <span class="rise" style="animation-delay:.05s">Tell keeper who you love.</span>
+      <span class="rise credit" style="animation-delay:.2s">We&rsquo;ll help you look after them.</span>
+    </h1>
+    <p class="sub rise-calm" style="animation-delay:.36s">Add the people who matter. The people who know them tell us what would land. We find the gift, pick the day, wrap it, sign it in your name and get it to the door. You get one tap.</p>
+    <div class="cta-row rise-calm" style="animation-delay:.48s" id="keep">
+      <!--
+        Where an address goes. By default the form opens the person's own mail app, addressed to
+        hello@keeper.gifts, because a form that posts nowhere under a line that says "Noted" is
+        how enquiries get thrown away. When there is a real endpoint, set data-endpoint to a URL
+        that accepts POST {"email": "..."} and the same form will use it instead.
+      -->
+      <form class="waitlist" data-waitlist data-endpoint="https://formspree.io/f/xbgjzdrg" data-mailto="hello@keeper.gifts">
+        <label class="sr-only" for="email-top">Your email</label>
+        <input id="email-top" type="email" name="email" placeholder="Your email" required autocomplete="email" inputmode="email">
+        <button type="submit" class="pill primary">Keep me posted</button>
+      </form>
+      <div class="noted" data-noted hidden>Noted. You&rsquo;ll hear from us once, when it&rsquo;s ready.</div>
+      <span class="cta-note">Free. No plan to pick, no card to add. Coming soon to keeper.gifts.</span>
+    </div>
+    <div class="parcel rise-calm" style="animation-delay:.6s">
+      <div class="parcel-photo"><img src="/intro-parcel.jpg" alt=""></div>
+      <div class="parcel-copy">The next one is on its way.<br>Even you don&rsquo;t know what&rsquo;s in it.</div>
+    </div>
+  </div>
+  <div class="hero-card">
+    <img src="/hero-reaction.jpg" alt="Somebody opening a wrapped parcel, laughing">
+    <div class="hero-caption">
+      <div><div class="display">&ldquo;How did you know?&rdquo;</div><small>Told to us by a sister. Signed by you.</small></div>
+      <span class="chip">Landed</span>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────────────── WORKS ── -->
+<section id="works" class="wrap band">
+  <div class="section-head">
+    <h2 class="display">What&rsquo;s in the works</h2>
+    <p>Who, what, when and how much. keeper works all four out, and hands you one decision.</p>
+  </div>
+  <div class="works">
+    <div class="cards">
+      <div class="card">
+        <div class="label">Who</div>
+        <h3>The people you love, and the people who know them.</h3>
+        <p>Invite a sister, a mate, a partner. They tell us what would land, what they already have, what never to buy. They never see what you spend.</p>
+      </div>
+      <div class="card">
+        <div class="label">What</div>
+        <h3>A decision, not a list.</h3>
+        <p>No scrolling, no comparing, no tabs left open. One thing, the reason we chose it, and a price that includes getting it there.</p>
+      </div>
+      <div class="card">
+        <div class="label">When</div>
+        <h3>We pick the day. You get one tap.</h3>
+        <p>Birthdays, anniversaries, the day they get back from Europe, and now and then a Tuesday for no reason at all. It arrives on the day, not the day after.</p>
+      </div>
+      <div class="card">
+        <div class="label">How much</div>
+        <h3>Every dollar on the receipt.</h3>
+        <p>The gift at the brand&rsquo;s own price. Our margin and the wrapping and posting each on their own line. You can check any of it against the shop.</p>
+      </div>
+    </div>
+    <div class="decision">
+      <div class="eyebrow">A gift is ready</div>
+      <div class="title">Surprise Sarah this Friday.</div>
+      <p class="why">Her sister told us. A field journal for birdwatchers, wrapped, with your card, at the door on the day.</p>
+      <div class="ready">
+        <div class="thumb"><img src="/strike-book.jpg" alt=""></div>
+        <div style="flex:1;min-width:0">
+          <div class="t">A$129 delivered</div>
+          <div class="m">11 days to say yes or no</div>
+        </div>
+        <div class="btn">Send it</div>
+      </div>
+      <p class="foot">Say nothing and it goes anyway. That is the whole point of us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────── FREE ── -->
+<section id="free" class="wrap band">
+  <div class="free">
+    <div class="inner">
+      <h2 class="display">Free. All of it.</h2>
+      <p class="lede">No monthly fee. No plans to pick. No wallet to fill. keeper earns on the gift, so the only thing we ever want to sell you is the right one.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="label">Remembering</div>
+          <h3>Every date, covered from the day you type it.</h3>
+          <p>Not remembered. Covered. We start looking a month out and you hear from us once.</p>
+        </div>
+        <div class="card">
+          <div class="label">People</div>
+          <h3>As many as you like.</h3>
+          <p>People, dates and the helpers around them are never counted, capped or charged for. A second person costs nothing.</p>
+        </div>
+        <div class="card">
+          <div class="label">Paying</div>
+          <h3>Only when a gift goes.</h3>
+          <p>You pay for the gift when you say yes, or when you say nothing. If you&rsquo;d rather set a little aside each month, you can. Never a tier, never required.</p>
+        </div>
+      </div>
+      <p class="note">If a gift ever costs more with us than at the shop, that is our problem to fix, not a reason to charge you for the app.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────────────── MODES ── -->
+<section id="how" class="wrap band">
+  <div class="section-head">
+    <h2 class="display">How much do you want to do?</h2>
+    <p>Your call, per person. Change it any time.</p>
+  </div>
+  <div class="modes">
+    <div class="mode">
+      <h3>Not at all</h3>
+      <p>Set a limit per person. Under it, we just look after them and tell you once. Over it, you get the tap.</p>
+      <div class="line">Zero taps a month. Earned, not switched on: the first gift for anyone is always yours to send.</div>
+    </div>
+    <div class="mode pick">
+      <span class="tag chip">Most people</span>
+      <h3>A little</h3>
+      <p>We find something, or their people propose one. You say yes or no. Ten seconds.</p>
+      <div class="line">About one tap a month.</div>
+    </div>
+    <div class="mode">
+      <h3>Hands on</h3>
+      <p>You and their people put ideas up together. You send the one you like.</p>
+      <div class="line">You shop together, in secret. It still looks like it was all you.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────────────── QUIET ── -->
+<section class="wrap band">
+  <div class="quiet">
+    <div>
+      <h2 class="display">Nothing is ever sent to the person it&rsquo;s for.</h2>
+      <p>No email, no text, no tracking link, no receipt. The parcel carries your name and your words and nothing of ours. As far as they know, you did all this.</p>
+    </div>
+    <div class="quiet-photo"><img src="/intro-parcel.jpg" alt="Three wrapped parcels, stacked"></div>
+  </div>
+</section>
+
+<!-- ────────────────────────────────────────────── CLOSE ── -->
+<section class="wrap close">
+  <h2 class="display">Be first to hear.</h2>
+  <p>One email when it&rsquo;s ready. Nothing before, nothing after.</p>
+  <form class="waitlist" data-waitlist data-endpoint="https://formspree.io/f/xbgjzdrg" data-mailto="hello@keeper.gifts">
+    <label class="sr-only" for="email-bottom">Your email</label>
+    <input id="email-bottom" type="email" name="email" placeholder="Your email" required autocomplete="email" inputmode="email">
+    <button type="submit" class="pill primary">Keep me posted</button>
+  </form>
+  <div class="noted" data-noted hidden>Noted. You&rsquo;ll hear from us once, when it&rsquo;s ready.</div>
+  <span class="cta-note">keeper.gifts</span>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Keeper Pty Ltd</span>
+    <nav><a href="mailto:hello@keeper.gifts">hello@keeper.gifts</a></nav>
+  </div>
+</footer>
+
+<script>
+/*
+ * Both forms share one behaviour. With a data-endpoint, the address is POSTed as JSON and the
+ * form is replaced by "Noted". Without one, the person's own mail app opens with the address in
+ * the subject, which delivers with no server behind it and cannot silently stop working.
+ */
+for (const form of document.querySelectorAll('form[data-waitlist]')) {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    const email = form.querySelector('input[type=email]').value.trim()
+    if (!email) return
+    const endpoint = form.dataset.endpoint
+    const noted = form.parentElement.querySelector('[data-noted]')
+    const done = () => { form.hidden = true; if (noted) noted.hidden = false }
+    if (endpoint) {
+      // data-extra is a JSON object merged into the body, for services that want a key or a
+      // subject alongside the address (Web3Forms wants access_key, Formspree wants nothing).
+      let extra = {}
+      try { extra = JSON.parse(form.dataset.extra || '{}') } catch (_) { extra = {} }
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json', accept: 'application/json' },
+          body: JSON.stringify({ email, source: 'keeper.gifts', ...extra }),
+        })
+        if (res.ok) return done()
+      } catch (_) { /* fall through to mail */ }
+    }
+    const to = form.dataset.mailto
+    const subject = encodeURIComponent('Keep me posted')
+    const body = encodeURIComponent(`Please let me know when keeper is ready. ${email}`)
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
+    done()
+  })
+}
+</script>
+</body>
+</html>

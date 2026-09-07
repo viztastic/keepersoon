@@ -3,401 +3,259 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>keeper, coming soon. Tell keeper who you love.</title>
-<meta name="description" content="Tell keeper who you love. We'll help you look after them. Free, no plan to pick, no card to add. Coming soon to keeper.gifts.">
+<title>keeper, coming soon</title>
+<meta name="description" content="Keep her. Keep him. Keep mum. Keep your people. Dates remembered, gifts sorted, surprises handled. Coming soon to keeper.gifts.">
 <meta name="theme-color" content="#fafafc">
 <!-- A pasted link is often the first time anyone sees keeper. Absolute URLs, because every
-     unfurler fetches the image from its own server. og.png is rendered by ../render.mjs from the
-     same word, face and palette as this page, so it cannot drift. -->
+     unfurler fetches the image from its own server. og.png is rendered by ../render.mjs. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="keeper">
 <meta property="og:title" content="keeper, coming soon">
-<meta property="og:description" content="Tell keeper who you love. We'll help you look after them.">
+<meta property="og:description" content="Keep her. Keep him. Keep mum. Keep your people.">
 <meta property="og:url" content="https://keeper.gifts/">
 <meta property="og:image" content="https://keeper.gifts/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="keeper. Tell keeper who you love. We'll help you look after them. Coming soon.">
+<meta property="og:image:alt" content="keeper. Coming soon.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="keeper, coming soon">
-<meta name="twitter:description" content="Tell keeper who you love. We'll help you look after them.">
+<meta name="twitter:description" content="Keep her. Keep him. Keep mum. Keep your people.">
 <meta name="twitter:image" content="https://keeper.gifts/og.png">
 <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="canonical" href="https://keeper.gifts/">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap">
 <style>
 /*
- * Marshmallow, the brand's only language. Values are lifted from
- * packages/tokens/src/languages.ts and inlined here on purpose: this site is meant to be dropped
- * onto S3 or Vercel as a folder, with no generator behind it. If the palette moves, move it here.
+ * Marshmallow (packages/tokens/src/languages.ts), inlined so this folder hosts anywhere with
+ * no generator behind it. Paper ground, ink type, violet action. The only dark thing on the
+ * page is the phone's screen, because the photographs are.
  */
 :root{
-  --bg:#fafafc; --bg-deep:#f3f1f8;
-  --surface:#e6dcff; --surface-raised:#ffffff; --tint:#e6dcff; --tint-deep:#d9ccff;
-  --ink:#26212e; --ink-dim:#443c4f; --ink-muted:#625a6e; --ink-faint:#736b7e; --ink-ghost:#787083;
-  --cta-fill:#5b3fa6; --cta-fill-pressed:#4a3190; --cta-ink:#ffffff; --cta-outline:#5b3fa6;
-  --status-fill:#ffe45c; --status-ink:#26212e;
-  --neutral-fill:#ece9f2; --neutral-ink:#625a6e;
-  --dashed:#c9b8fa; --green:#2f7a4f;
-  --stripes-a:#efeaf7; --stripes-b:#e2d8f5;
-  --hairline:#e6dcff; --divider:rgba(91,63,166,.14);
-  --grad-hero-card-fade:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.72));
+  --bg:#fafafc; --bg-deep:#f3f1f8; --surface:#e6dcff; --raised:#ffffff; --tint-deep:#d9ccff;
+  --ink:#26212e; --ink-dim:#443c4f; --ink-muted:#625a6e; --ink-faint:#736b7e;
+  --cta:#5b3fa6; --cta-pressed:#4a3190; --cta-ink:#ffffff;
+  --status:#ffe45c; --lilac:#c9b8fa; --hair:#e6dcff;
   --sans:'Archivo',system-ui,-apple-system,sans-serif;
   --display:'Poppins','Archivo',system-ui,sans-serif;
-  --radius-input:16px; --radius-button:999px; --radius-card:22px; --radius-card-small:16px;
-  --radius-pill:999px; --radius-sheet:28px; --radius-tile:20px;
-  --motion-enter:cubic-bezier(.34,1.56,.64,1); --motion-enter-ms:420ms;
+  --enter:cubic-bezier(.34,1.56,.64,1);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:var(--cta-fill);text-decoration:none}
-a:hover{color:var(--ink)}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;min-height:100vh}
+a{color:var(--cta);text-decoration:none}
 input,button{font-family:inherit}
-button{cursor:pointer}
-img{display:block}
-.wrap{max-width:1180px;margin:0 auto;padding-left:36px;padding-right:36px}
-.display{font-family:var(--display);font-weight:700;letter-spacing:-.02em}
-.wordmark{font-family:var(--display);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--ink)}
-.pill{border:0;border-radius:var(--radius-button);font-family:var(--display);font-weight:600;font-size:16px;padding:14px 24px;cursor:pointer;transition:transform .12s ease}
-.pill.primary{background:var(--cta-fill);color:var(--cta-ink)}
-.pill.primary:active{background:var(--cta-fill-pressed)}
-.pill.outline{background:var(--surface-raised);color:var(--cta-fill);box-shadow:inset 0 0 0 1.5px var(--cta-outline)}
-.pill:active{transform:scale(.98)}
-.label{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--ink-muted);text-transform:uppercase}
-.chip{font-size:12.5px;font-weight:700;color:var(--status-ink);background:var(--status-fill);border-radius:var(--radius-pill);padding:6px 12px;white-space:nowrap}
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-@keyframes rise{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes pop{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
-.rise{display:block;animation:rise .7s var(--motion-enter) both}
-.rise-calm{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
-@media(prefers-reduced-motion:reduce){.rise,.rise-calm,.hero-card,.noted{animation:none!important}}
+/* ── the word, top left, as the logo already is ── */
+header{padding:22px 28px;display:flex;justify-content:space-between;align-items:center}
+.wordmark{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.soon{font-size:12.5px;font-weight:700;color:var(--ink);background:var(--status);border-radius:999px;padding:6px 12px}
 
-/* ── header ── */
-header{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.nav{display:flex;align-items:center;justify-content:space-between;padding-top:18px;padding-bottom:18px}
-.nav .mark{display:inline-flex;align-items:center;gap:12px}
-.nav .wordmark{font-size:26px}
-.nav nav{display:flex;align-items:center;gap:22px;font-size:14.5px;font-weight:600}
-.nav nav a{color:var(--ink-muted)}
-.nav nav a:hover{color:var(--ink)}
-.nav .pill{padding:11px 20px;font-size:14.5px}
-@media(max-width:720px){.nav nav a{display:none}}
+/* ── the phone, in the middle ── */
+main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:8px 20px 40px}
+.phone{margin-bottom:30px}
+.phone{
+  position:relative;width:min(390px,92vw);aspect-ratio:390/844;
+  border-radius:56px;background:#0a0908;padding:12px;
+  box-shadow:0 30px 80px rgba(38,33,46,.28),0 0 0 2px #2b2630 inset;
+  animation:pop .8s var(--enter) both;
+}
+@media(max-height:900px){.phone{width:min(360px,92vw)}}
+@media(max-height:760px){.phone{width:min(320px,92vw);border-radius:48px}}
+.screen{position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#0a0908;color:#fff}
+.screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;opacity:0;
+  transition:opacity .9s ease;will-change:opacity}
+.screen img.on{opacity:1}
+/* Dark from the bottom so the words read, whatever the photograph is doing. */
+.screen::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,9,8,.45) 0%,rgba(10,9,8,0) 26%,rgba(10,9,8,0) 42%,rgba(10,9,8,.86) 72%,#0a0908 100%)}
+.island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:34%;height:30px;border-radius:999px;background:#000;z-index:3}
+.status{position:absolute;top:18px;left:28px;right:28px;display:flex;justify-content:space-between;font-size:14px;font-weight:600;z-index:3}
+.status span:last-child{letter-spacing:.06em}
+.app{position:absolute;top:76px;left:0;right:0;z-index:3;display:flex;flex-direction:column;align-items:center;font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.03em;line-height:1}
 
-/* ── hero ── */
-.hero{padding-top:56px;padding-bottom:40px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
-.hero h1{font-size:clamp(38px,4.7vw,58px);line-height:1.04;margin:0;color:var(--ink);text-wrap:balance}
-.hero h1 .credit{color:var(--cta-fill)}
-.hero .sub{font-size:18px;line-height:1.55;color:var(--ink-muted);max-width:42ch;margin:26px 0 0;text-wrap:pretty}
-.cta-row{margin-top:26px}
-.cta-note{font-size:13.5px;color:var(--ink-faint);margin-top:10px;display:block}
-.waitlist{display:flex;gap:10px;flex-wrap:wrap}
-.waitlist input{flex:1 1 220px;min-width:0;padding:14px 18px;border-radius:var(--radius-button);border:1.5px solid var(--hairline);background:var(--surface-raised);color:var(--ink);font-size:15px;outline:none}
-.waitlist input:focus-visible{border-color:var(--cta-fill);box-shadow:0 0 0 3px rgba(91,63,166,.15)}
-.noted{font-size:15.5px;color:var(--cta-fill);font-weight:600;animation:pop .4s var(--motion-enter) both;margin-top:12px}
-.parcel{display:flex;align-items:center;gap:14px;margin-top:34px;padding:12px 16px 12px 12px;background:var(--surface);border-radius:var(--radius-card);max-width:420px}
-.parcel-photo{flex:none;width:64px;height:64px;border-radius:var(--radius-card-small);overflow:hidden}
-.parcel-photo img{width:100%;height:100%;object-fit:cover}
-.parcel-copy{font-size:14px;line-height:1.45;color:var(--ink-dim);font-weight:500}
-.hero-card{position:relative;border-radius:var(--radius-sheet);overflow:hidden;background:var(--tint);aspect-ratio:5/6;animation:pop .8s var(--motion-enter) .2s both}
-.hero-card img{width:100%;height:100%;object-fit:cover}
-.hero-card::after{content:'';position:absolute;inset:0;background:var(--grad-hero-card-fade);pointer-events:none}
-.hero-caption{position:absolute;left:22px;right:22px;bottom:22px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;color:var(--cta-ink)}
-.hero-caption .display{font-size:22px;font-weight:600;line-height:1.15;letter-spacing:0}
-.hero-caption small{display:block;font-size:13px;opacity:.85;margin-top:4px}
-@media(max-width:860px){.hero{grid-template-columns:1fr;gap:28px;padding-top:36px}.hero-card{aspect-ratio:4/3;max-height:420px}}
+.copy{position:absolute;left:24px;right:24px;bottom:120px;z-index:3}
+.keep{font-family:var(--display);font-weight:800;font-size:clamp(44px,15.5cqw,64px);line-height:.95;letter-spacing:-.03em;color:#fff;margin:0}
+.who{font-family:var(--display);font-weight:800;font-size:clamp(34px,12.5cqw,52px);line-height:1;letter-spacing:-.025em;color:var(--lilac);margin:4px 0 0;min-height:1em;white-space:nowrap}
+.who.two{font-size:clamp(28px,10cqw,42px);white-space:normal;line-height:1.02}
+.caret{display:inline-block;width:.08em;height:.9em;background:var(--lilac);margin-left:.06em;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.tag{font-family:var(--sans);font-size:14px;line-height:1.4;color:rgba(255,255,255,.82);margin:14px 0 0;opacity:0;transition:opacity .5s ease;max-width:26ch}
+.tag.on{opacity:1}
+.phone{container-type:inline-size}
 
-/* ── sections ── */
-section.band{padding-top:70px;padding-bottom:70px}
-.section-head{max-width:60ch;margin-bottom:28px}
-.section-head h2{font-size:clamp(28px,3.6vw,40px);line-height:1.1;margin:0 0 10px}
-.section-head p{font-size:16.5px;color:var(--ink-muted);margin:0;text-wrap:pretty}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
-.card{background:var(--surface);border-radius:var(--radius-card);padding:24px 26px}
-.card.white{background:var(--surface-raised);border:1.5px solid var(--hairline)}
-.card .label{margin-bottom:10px;color:var(--cta-fill)}
-.card h3{font-family:var(--display);font-size:20px;font-weight:600;letter-spacing:-.015em;margin:0 0 8px;line-height:1.25}
-.card p{font-size:15px;color:var(--ink-dim);margin:0;line-height:1.5;text-wrap:pretty}
+/* Under the word, 16px below it, and exactly as wide as it: the script sets the width from the word. */
+.dots{display:flex;justify-content:space-between;margin-top:12px;width:88px}
+.dots button{width:7px;height:7px;border-radius:999px;border:0;padding:0;background:rgba(255,255,255,.3);cursor:pointer;transition:background .3s,transform .3s}
+.dots button.on{background:var(--lilac);transform:scale(1.3)}
+.cta{position:absolute;left:24px;right:24px;bottom:34px;z-index:3;display:block;text-align:center;background:var(--cta);color:#fff;
+  border:0;border-radius:999px;padding:12px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer}
+.cta:active{background:var(--cta-pressed)}
 
-/* the decision card, drawn the way the app draws it */
-.decision{background:var(--surface-raised);border:1.5px solid var(--hairline);border-radius:var(--radius-sheet);padding:22px 20px;max-width:400px}
-.decision .eyebrow{font-size:11px;letter-spacing:.14em;font-weight:700;color:var(--cta-fill);text-transform:uppercase}
-.decision .title{font-family:var(--display);font-size:24px;font-weight:700;line-height:1.15;letter-spacing:-.02em;margin:8px 0 6px}
-.decision .why{font-size:14px;color:var(--ink-muted);line-height:1.5;margin:0 0 14px}
-.decision .ready{background:var(--tint-deep);border-radius:var(--radius-card);padding:14px;display:flex;gap:12px;align-items:center}
-.decision .thumb{flex:none;width:56px;height:56px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(45deg,var(--stripes-a) 0 10px,var(--stripes-b) 10px 20px)}
-.decision .thumb img{width:100%;height:100%;object-fit:cover}
-.decision .t{font-family:var(--display);font-size:15px;font-weight:600;line-height:1.3}
-.decision .m{font-size:12.5px;color:var(--ink-muted);margin-top:3px}
-.decision .btn{flex:none;background:var(--cta-fill);color:#fff;border-radius:var(--radius-pill);padding:10px 16px;font-family:var(--display);font-size:13.5px;font-weight:600}
-.decision .foot{font-size:13px;color:var(--ink-faint);margin:12px 0 0}
-.works{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center}
-@media(max-width:860px){.works{grid-template-columns:1fr}}
+/* ── under the phone ── */
+.form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:min(440px,92vw)}
+.form input{flex:1 1 200px;min-width:0;padding:14px 18px;border-radius:999px;border:1.5px solid var(--hair);background:var(--raised);color:var(--ink);font-size:15px;outline:none}
+.form input:focus-visible{border-color:var(--cta);box-shadow:0 0 0 3px rgba(91,63,166,.15)}
+.form button{border:0;border-radius:999px;background:var(--cta);color:#fff;padding:14px 22px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer}
+.noted{font-size:15px;font-weight:600;color:var(--cta);animation:pop .4s var(--enter) both}
+.line{font-size:13.5px;color:var(--ink-faint);margin:0;text-align:center}
+@keyframes pop{0%{transform:scale(.94);opacity:0}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){.phone,.noted{animation:none}.caret{animation:none}.screen img{transition:none}}
 
-/* ── free ── */
-.free{background:var(--ink);color:var(--bg);border-radius:var(--radius-sheet)}
-.free .inner{padding:56px 48px}
-.free h2{font-size:clamp(32px,4.4vw,52px);line-height:1.02;margin:0 0 10px;color:var(--bg)}
-.free .lede{font-size:18px;color:color-mix(in srgb,var(--bg) 72%,transparent);max-width:46ch;margin:0 0 30px;text-wrap:pretty}
-.free .cards{gap:12px}
-.free .card{background:color-mix(in srgb,var(--bg) 8%,transparent);border:1px solid color-mix(in srgb,var(--bg) 14%,transparent)}
-.free .card h3{color:var(--bg)}
-.free .card p{color:color-mix(in srgb,var(--bg) 70%,transparent)}
-.free .card .label{color:var(--status-fill)}
-.free .note{margin-top:24px;font-size:14px;color:color-mix(in srgb,var(--bg) 60%,transparent);max-width:70ch}
-@media(max-width:720px){.free .inner{padding:36px 26px}}
-
-/* ── modes ── */
-.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.mode{background:var(--surface-raised);border:1.5px solid var(--hairline);border-radius:var(--radius-card);padding:22px 24px;position:relative}
-.mode.pick{border-color:var(--cta-fill);background:var(--surface)}
-.mode .tag{position:absolute;top:16px;right:16px}
-.mode h3{font-family:var(--display);font-size:20px;font-weight:600;margin:0 0 8px;letter-spacing:-.015em}
-.mode p{font-size:15px;color:var(--ink-dim);margin:0;line-height:1.5}
-.mode .line{margin-top:14px;padding-top:12px;border-top:1px solid var(--divider);font-size:13.5px;color:var(--ink-muted);font-weight:600}
-
-/* ── quiet ── */
-.quiet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
-.quiet h2{font-size:clamp(30px,3.8vw,42px);line-height:1.1;margin:0}
-.quiet p{font-size:15.5px;line-height:1.55;color:var(--ink-muted);margin:16px 0 0;max-width:42ch;text-wrap:pretty}
-.quiet-photo{border-radius:var(--radius-card);overflow:hidden;background:var(--tint)}
-.quiet-photo img{width:100%;height:340px;object-fit:cover}
-@media(max-width:860px){.quiet{grid-template-columns:1fr}}
-
-/* ── close ── */
-.close{text-align:center;padding-top:40px;padding-bottom:90px}
-.close h2{font-size:clamp(30px,4vw,46px);line-height:1.05;margin:0 0 12px}
-.close p{color:var(--ink-muted);margin:0 auto 24px;max-width:46ch}
-.close .waitlist{justify-content:center;max-width:520px;margin:0 auto}
-.close .cta-note{text-align:center}
-
-footer{border-top:1px solid var(--hairline)}
-footer .wrap{padding-top:28px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink-faint);flex-wrap:wrap;gap:12px}
-footer nav{display:flex;gap:20px}
+footer{padding:18px 28px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink-faint);flex-wrap:wrap;gap:10px}
 footer a{color:var(--ink-faint)}
-footer a:hover{color:var(--ink)}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap nav">
-    <a class="mark" href="/"><span class="wordmark">keeper</span><span class="chip">Coming soon</span></a>
-    <nav>
-      <a href="#works">What&rsquo;s coming</a>
-      <a href="#free">Free</a>
-      <a href="#how">How much you do</a>
-      <a href="#keep" class="pill primary">Keep me posted</a>
-    </nav>
-  </div>
+  <span class="wordmark">keeper</span>
+  <span class="soon">Coming soon</span>
 </header>
 
-<!-- ─────────────────────────────────────────────── HERO ── -->
-<section class="wrap hero">
-  <div>
-    <h1 class="display">
-      <span class="rise" style="animation-delay:.05s">Tell keeper who you love.</span>
-      <span class="rise credit" style="animation-delay:.2s">We&rsquo;ll help you look after them.</span>
-    </h1>
-    <p class="sub rise-calm" style="animation-delay:.36s">Add the people who matter. The people who know them tell us what would land. We find the gift, pick the day, wrap it, sign it in your name and get it to the door. You get one tap.</p>
-    <div class="cta-row rise-calm" style="animation-delay:.48s" id="keep">
-      <!--
-        Where an address goes. By default the form opens the person's own mail app, addressed to
-        hello@keeper.gifts, because a form that posts nowhere under a line that says "Noted" is
-        how enquiries get thrown away. When there is a real endpoint, set data-endpoint to a URL
-        that accepts POST {"email": "..."} and the same form will use it instead.
-      -->
-      <form class="waitlist" data-waitlist data-endpoint="https://formspree.io/f/xbgjzdrg" data-mailto="hello@keeper.gifts">
-        <label class="sr-only" for="email-top">Your email</label>
-        <input id="email-top" type="email" name="email" placeholder="Your email" required autocomplete="email" inputmode="email">
-        <button type="submit" class="pill primary">Keep me posted</button>
-      </form>
-      <div class="noted" data-noted hidden>Noted. You&rsquo;ll hear from us once, when it&rsquo;s ready.</div>
-      <span class="cta-note">Free. No plan to pick, no card to add. Coming soon to keeper.gifts.</span>
-    </div>
-    <div class="parcel rise-calm" style="animation-delay:.6s">
-      <div class="parcel-photo"><img src="/intro-parcel.jpg" alt=""></div>
-      <div class="parcel-copy">The next one is on its way.<br>Even you don&rsquo;t know what&rsquo;s in it.</div>
+<main>
+  <div class="phone" role="img" aria-label="keeper. Keep her. Keep him. Keep mum. Keep your mates. Keep your team. Keep your clients. Keep your people.">
+    <div class="screen">
+      <!-- One img per scene, crossfaded. The first is the signature photograph from the home page. -->
+      <img src="/scene-her.jpg" alt="" class="on" data-scene="0" style="object-position:74% 30%">
+      <img src="/scene-him.jpg" alt="" data-scene="1">
+      <img src="/scene-mum.jpg" alt="" data-scene="2">
+      <img src="/scene-mates.jpg" alt="" data-scene="3">
+      <img src="/scene-team.jpg" alt="" data-scene="4">
+      <img src="/scene-clients.jpg" alt="" data-scene="5">
+      <img src="/scene-people.jpg" alt="" data-scene="6">
+      <div class="island"></div>
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="app"><span id="word">keeper</span><div class="dots" id="dots" aria-hidden="true"></div></div>
+      <div class="copy">
+        <p class="keep">keep</p>
+        <p class="who" id="who" aria-live="off"><span id="typed">her.</span><span class="caret" aria-hidden="true"></span></p>
+        <p class="tag" id="tag">Dates remembered. Gifts sorted. Random surprises handled.</p>
+      </div>
+      <button type="button" class="cta" id="cta">Keep me posted &rarr;</button>
     </div>
   </div>
-  <div class="hero-card">
-    <img src="/hero-reaction.jpg" alt="Somebody opening a wrapped parcel, laughing">
-    <div class="hero-caption">
-      <div><div class="display">&ldquo;How did you know?&rdquo;</div><small>Told to us by a sister. Signed by you.</small></div>
-      <span class="chip">Landed</span>
-    </div>
-  </div>
-</section>
 
-<!-- ────────────────────────────────────────────── WORKS ── -->
-<section id="works" class="wrap band">
-  <div class="section-head">
-    <h2 class="display">What&rsquo;s in the works</h2>
-    <p>Who, what, when and how much. keeper works all four out, and hands you one decision.</p>
-  </div>
-  <div class="works">
-    <div class="cards">
-      <div class="card">
-        <div class="label">Who</div>
-        <h3>The people you love, and the people who know them.</h3>
-        <p>Invite a sister, a mate, a partner. They tell us what would land, what they already have, what never to buy. They never see what you spend.</p>
-      </div>
-      <div class="card">
-        <div class="label">What</div>
-        <h3>A decision, not a list.</h3>
-        <p>No scrolling, no comparing, no tabs left open. One thing, the reason we chose it, and a price that includes getting it there.</p>
-      </div>
-      <div class="card">
-        <div class="label">When</div>
-        <h3>We pick the day. You get one tap.</h3>
-        <p>Birthdays, anniversaries, the day they get back from Europe, and now and then a Tuesday for no reason at all. It arrives on the day, not the day after.</p>
-      </div>
-      <div class="card">
-        <div class="label">How much</div>
-        <h3>Every dollar on the receipt.</h3>
-        <p>The gift at the brand&rsquo;s own price. Our margin and the wrapping and posting each on their own line. You can check any of it against the shop.</p>
-      </div>
-    </div>
-    <div class="decision">
-      <div class="eyebrow">A gift is ready</div>
-      <div class="title">Surprise Sarah this Friday.</div>
-      <p class="why">Her sister told us. A field journal for birdwatchers, wrapped, with your card, at the door on the day.</p>
-      <div class="ready">
-        <div class="thumb"><img src="/strike-book.jpg" alt=""></div>
-        <div style="flex:1;min-width:0">
-          <div class="t">A$129 delivered</div>
-          <div class="m">11 days to say yes or no</div>
-        </div>
-        <div class="btn">Send it</div>
-      </div>
-      <p class="foot">Say nothing and it goes anyway. That is the whole point of us.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────────────────────────── FREE ── -->
-<section id="free" class="wrap band">
-  <div class="free">
-    <div class="inner">
-      <h2 class="display">Free. All of it.</h2>
-      <p class="lede">No monthly fee. No plans to pick. No wallet to fill. keeper earns on the gift, so the only thing we ever want to sell you is the right one.</p>
-      <div class="cards">
-        <div class="card">
-          <div class="label">Remembering</div>
-          <h3>Every date, covered from the day you type it.</h3>
-          <p>Not remembered. Covered. We start looking a month out and you hear from us once.</p>
-        </div>
-        <div class="card">
-          <div class="label">People</div>
-          <h3>As many as you like.</h3>
-          <p>People, dates and the helpers around them are never counted, capped or charged for. A second person costs nothing.</p>
-        </div>
-        <div class="card">
-          <div class="label">Paying</div>
-          <h3>Only when a gift goes.</h3>
-          <p>You pay for the gift when you say yes, or when you say nothing. If you&rsquo;d rather set a little aside each month, you can. Never a tier, never required.</p>
-        </div>
-      </div>
-      <p class="note">If a gift ever costs more with us than at the shop, that is our problem to fix, not a reason to charge you for the app.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ────────────────────────────────────────────── MODES ── -->
-<section id="how" class="wrap band">
-  <div class="section-head">
-    <h2 class="display">How much do you want to do?</h2>
-    <p>Your call, per person. Change it any time.</p>
-  </div>
-  <div class="modes">
-    <div class="mode">
-      <h3>Not at all</h3>
-      <p>Set a limit per person. Under it, we just look after them and tell you once. Over it, you get the tap.</p>
-      <div class="line">Zero taps a month. Earned, not switched on: the first gift for anyone is always yours to send.</div>
-    </div>
-    <div class="mode pick">
-      <span class="tag chip">Most people</span>
-      <h3>A little</h3>
-      <p>We find something, or their people propose one. You say yes or no. Ten seconds.</p>
-      <div class="line">About one tap a month.</div>
-    </div>
-    <div class="mode">
-      <h3>Hands on</h3>
-      <p>You and their people put ideas up together. You send the one you like.</p>
-      <div class="line">You shop together, in secret. It still looks like it was all you.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ────────────────────────────────────────────── QUIET ── -->
-<section class="wrap band">
-  <div class="quiet">
-    <div>
-      <h2 class="display">Nothing is ever sent to the person it&rsquo;s for.</h2>
-      <p>No email, no text, no tracking link, no receipt. The parcel carries your name and your words and nothing of ours. As far as they know, you did all this.</p>
-    </div>
-    <div class="quiet-photo"><img src="/intro-parcel.jpg" alt="Three wrapped parcels, stacked"></div>
-  </div>
-</section>
-
-<!-- ────────────────────────────────────────────── CLOSE ── -->
-<section class="wrap close">
-  <h2 class="display">Be first to hear.</h2>
-  <p>One email when it&rsquo;s ready. Nothing before, nothing after.</p>
-  <form class="waitlist" data-waitlist data-endpoint="https://formspree.io/f/xbgjzdrg" data-mailto="hello@keeper.gifts">
-    <label class="sr-only" for="email-bottom">Your email</label>
-    <input id="email-bottom" type="email" name="email" placeholder="Your email" required autocomplete="email" inputmode="email">
-    <button type="submit" class="pill primary">Keep me posted</button>
+  <!--
+    The address goes to Formspree. If that POST fails the person's own mail app opens instead,
+    so a form that shows "Noted" can never have delivered nowhere.
+  -->
+  <form class="form" id="form" data-endpoint="https://formspree.io/f/xbgjzdrg" data-mailto="hello@keeper.gifts">
+    <label class="sr-only" for="email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Your email</label>
+    <input id="email" type="email" name="email" placeholder="Your email" required autocomplete="email" inputmode="email">
+    <button type="submit">Keep me posted</button>
   </form>
-  <div class="noted" data-noted hidden>Noted. You&rsquo;ll hear from us once, when it&rsquo;s ready.</div>
-  <span class="cta-note">keeper.gifts</span>
-</section>
+  <div class="noted" id="noted" hidden>Noted. You&rsquo;ll hear from us once, when it&rsquo;s ready.</div>
+  <p class="line">Free. No plan to pick, no card to add.</p>
+</main>
 
 <footer>
-  <div class="wrap">
-    <span>&copy; 2026 Keeper Pty Ltd</span>
-    <nav><a href="mailto:hello@keeper.gifts">hello@keeper.gifts</a></nav>
-  </div>
+  <span>&copy; 2026 Keeper Pty Ltd</span>
+  <a href="mailto:hello@keeper.gifts">hello@keeper.gifts</a>
 </footer>
 
 <script>
 /*
- * Both forms share one behaviour. With a data-endpoint, the address is POSTed as JSON and the
- * form is replaced by "Noted". Without one, the person's own mail app opens with the address in
- * the subject, which delivers with no server behind it and cannot silently stop working.
+ * The scenes. One word after KEEP wherever one word will do; the closer takes two and carries
+ * the tagline. Order is the order the founder drew them in.
  */
-for (const form of document.querySelectorAll('form[data-waitlist]')) {
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault()
-    const email = form.querySelector('input[type=email]').value.trim()
-    if (!email) return
-    const endpoint = form.dataset.endpoint
-    const noted = form.parentElement.querySelector('[data-noted]')
-    const done = () => { form.hidden = true; if (noted) noted.hidden = false }
-    if (endpoint) {
-      // data-extra is a JSON object merged into the body, for services that want a key or a
-      // subject alongside the address (Web3Forms wants access_key, Formspree wants nothing).
-      let extra = {}
-      try { extra = JSON.parse(form.dataset.extra || '{}') } catch (_) { extra = {} }
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'content-type': 'application/json', accept: 'application/json' },
-          body: JSON.stringify({ email, source: 'keeper.gifts', ...extra }),
-        })
-        if (res.ok) return done()
-      } catch (_) { /* fall through to mail */ }
-    }
-    const to = form.dataset.mailto
-    const subject = encodeURIComponent('Keep me posted')
-    const body = encodeURIComponent(`Please let me know when keeper is ready. ${email}`)
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
-    done()
-  })
+const SCENES = [
+  { word: 'her.' },
+  { word: 'him.' },
+  { word: 'mum.' },
+  { word: 'mates.' },
+  { word: 'team.' },
+  { word: 'clients.' },
+  { word: 'your people.', tag: true },
+]
+const TYPE_MS = 85, ERASE_MS = 38, HOLD_MS = 1700, HOLD_LAST_MS = 3400, GAP_MS = 260
+
+const typed = document.getElementById('typed')
+const who = document.getElementById('who')
+const tag = document.getElementById('tag')
+const imgs = [...document.querySelectorAll('.screen img')]
+const dots = document.getElementById('dots')
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches
+
+SCENES.forEach((_, i) => {
+  const b = document.createElement('button')
+  b.type = 'button'
+  b.addEventListener('click', () => jump(i))
+  dots.appendChild(b)
+})
+const dotEls = [...dots.children]
+const fit = () => { dots.style.width = document.getElementById('word').getBoundingClientRect().width + 'px' }
+fit(); addEventListener('resize', fit); document.fonts.ready.then(fit)
+
+const wait = (ms) => new Promise((r) => setTimeout(r, ms))
+let current = 0, run = 0
+
+const show = (i) => {
+  imgs.forEach((img) => img.classList.toggle('on', Number(img.dataset.scene) === i))
+  dotEls.forEach((d, k) => d.classList.toggle('on', k === i))
+  who.classList.toggle('two', SCENES[i].word.includes(' '))
+  tag.classList.toggle('on', Boolean(SCENES[i].tag))
 }
+
+const play = async (token) => {
+  while (token === run) {
+    const scene = SCENES[current]
+    show(current)
+    if (still) {
+      typed.textContent = scene.word
+      await wait(scene.tag ? HOLD_LAST_MS : HOLD_MS)
+    } else {
+      typed.textContent = ''
+      for (const ch of scene.word) {
+        if (token !== run) return
+        typed.textContent += ch
+        await wait(TYPE_MS)
+      }
+      await wait(scene.tag ? HOLD_LAST_MS : HOLD_MS)
+      while (typed.textContent.length && token === run) {
+        typed.textContent = typed.textContent.slice(0, -1)
+        await wait(ERASE_MS)
+      }
+      if (token !== run) return
+      tag.classList.remove('on')
+      await wait(GAP_MS)
+    }
+    if (token !== run) return
+    current = (current + 1) % SCENES.length
+  }
+}
+
+const jump = (i) => { current = i; run += 1; play(run) }
+play(run)
+
+/* The phone's button and the form under it are the same ask. */
+document.getElementById('cta').addEventListener('click', () => {
+  const input = document.getElementById('email')
+  input.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  input.focus({ preventScroll: true })
+})
+
+const form = document.getElementById('form')
+form.addEventListener('submit', async (event) => {
+  event.preventDefault()
+  const email = form.querySelector('input[type=email]').value.trim()
+  if (!email) return
+  const done = () => { form.hidden = true; document.getElementById('noted').hidden = false }
+  try {
+    const res = await fetch(form.dataset.endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify({ email, source: 'keeper.gifts' }),
+    })
+    if (res.ok) return done()
+  } catch (_) { /* fall through to mail */ }
+  const subject = encodeURIComponent('Keep me posted')
+  const body = encodeURIComponent(`Please let me know when keeper is ready. ${email}`)
+  window.location.href = `mailto:${form.dataset.mailto}?subject=${subject}&body=${body}`
+  done()
+})
 </script>
 </body>
 </html>

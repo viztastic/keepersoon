@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>keeper, coming soon</title>
-<meta name="description" content="Keep her. Keep him. Keep mum. Keep your people. Dates remembered, gifts sorted, surprises handled. Coming soon to keeper.gifts.">
+<meta name="description" content="Keep her. Keep him. Keep mum happy. Keep your mates close. Keep your people. Dates remembered, gifts sorted, surprises handled. Coming soon to keeper.gifts.">
 <meta name="theme-color" content="#fafafc">
 <!-- A pasted link is often the first time anyone sees keeper. Absolute URLs, because every
      unfurler fetches the image from its own server. og.png is rendered by ../render.mjs. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="keeper">
 <meta property="og:title" content="keeper, coming soon">
-<meta property="og:description" content="Keep her. Keep him. Keep mum. Keep your people.">
+<meta property="og:description" content="Keep her. Keep him. Keep mum happy. Keep your mates close. Keep your people.">
 <meta property="og:url" content="https://keeper.gifts/">
 <meta property="og:image" content="https://keeper.gifts/og.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta property="og:image:alt" content="keeper. Coming soon.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="keeper, coming soon">
-<meta name="twitter:description" content="Keep her. Keep him. Keep mum. Keep your people.">
+<meta name="twitter:description" content="Keep her. Keep him. Keep mum happy. Keep your mates close. Keep your people.">
 <meta name="twitter:image" content="https://keeper.gifts/og.png">
 <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -80,6 +80,8 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;justify-conten
 .keep{font-family:var(--display);font-weight:800;font-size:clamp(44px,15.5cqw,64px);line-height:.95;letter-spacing:-.03em;color:#fff;margin:0}
 .who{font-family:var(--display);font-weight:800;font-size:clamp(34px,12.5cqw,52px);line-height:1;letter-spacing:-.025em;color:var(--lilac);margin:4px 0 0;min-height:1em;white-space:nowrap}
 .who.two{font-size:clamp(28px,10cqw,42px);white-space:normal;line-height:1.02}
+/* Long relationship phrases stay on one line while preserving the visual weight of KEEP. */
+.who.compact{font-size:clamp(27px,9.2cqw,38px);white-space:nowrap;line-height:1}
 .caret{display:inline-block;width:.08em;height:.9em;background:var(--lilac);margin-left:.06em;vertical-align:-.08em;animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .tag{font-family:var(--sans);font-size:14px;line-height:1.4;color:rgba(255,255,255,.82);margin:14px 0 0;opacity:0;transition:opacity .5s ease;max-width:26ch}
@@ -116,7 +118,7 @@ footer a{color:var(--ink-faint)}
 </header>
 
 <main>
-  <div class="phone" role="img" aria-label="keeper. Keep her. Keep him. Keep mum. Keep your mates. Keep your team. Keep your clients. Keep your people.">
+  <div class="phone" role="img" aria-label="keeper. Keep her. Keep him. Keep mum happy. Keep your mates close. Keep your team. Keep your clients. Keep your people.">
     <div class="screen">
       <!-- One img per scene, crossfaded. The first is the signature photograph from the home page. -->
       <img src="/scene-her.jpg" alt="" class="on" data-scene="0" style="object-position:74% 30%">
@@ -164,8 +166,8 @@ footer a{color:var(--ink-faint)}
 const SCENES = [
   { word: 'her.' },
   { word: 'him.' },
-  { word: 'mum.' },
-  { word: 'mates.' },
+  { word: 'mum happy.' },
+  { word: 'your mates close.', compact: true },
   { word: 'team.' },
   { word: 'clients.' },
   { word: 'your people.', tag: true },
@@ -195,7 +197,8 @@ let current = 0, run = 0
 const show = (i) => {
   imgs.forEach((img) => img.classList.toggle('on', Number(img.dataset.scene) === i))
   dotEls.forEach((d, k) => d.classList.toggle('on', k === i))
-  who.classList.toggle('two', SCENES[i].word.includes(' '))
+  who.classList.toggle('two', SCENES[i].word.includes(' ') && !SCENES[i].compact)
+  who.classList.toggle('compact', Boolean(SCENES[i].compact))
   tag.classList.toggle('on', Boolean(SCENES[i].tag))
 }
 
